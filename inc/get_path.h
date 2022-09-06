@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   get_line_path.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 18:17:08 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/09/02 17:37:18 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/09/06 18:21:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PARSE_ARGS_H
+# define PARSE_ARGS_H
 
-void		ft_putstr_fd(char *s, int fd);
-static void	ft_putchar_fd(char c, int fd);
-char 		*ft_strnchr(const char *s1, const char *s2, size_t len);
-size_t		ft_strlen(const char *str);
+char	**get_path(char	*env[]);
+char	**ft_split(char const *s, char c);
 
 #endif

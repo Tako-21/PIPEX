@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   get_cmd.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 18:17:08 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/09/06 19:37:56 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/09/06 19:45:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef GET_CMD_H
+# define GET_CMD_H
 
-void		ft_putstr_fd(char *s, int fd);
-static void	ft_putchar_fd(char c, int fd);
-char 		*ft_strnchr(const char *s1, const char *s2, size_t len);
-size_t		ft_strlen(const char *str);
+char	*get_cmd(char	*sh_command);
 
 #endif

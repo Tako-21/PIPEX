@@ -1,17 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_args.c                                       :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 13:38:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/02 14:03:50 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/09/06 20:21:00 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "get_cmd.h"
 
-t_error	check_fd(char **argv)
+char	*get_cmd(char *sh_command)
 {
+	char	*cmd;
+	int		len;
+
+	len = 0;
+	while (sh_command[len] && sh_command[len] != ' ')
+		len++;
+	cmd = malloc(sizeof(char) * (len + 1));
+	len = 0;
+	while (sh_command[len] && sh_command[len] != ' ')
+	{
+		cmd[len] = sh_command[len];
+		len++;
+	}
+	return (cmd);
 }

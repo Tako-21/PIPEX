@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/02 14:19:49 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:51:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,27 @@
 # define TOOLS_H
 
 /* The open() system call requires these preprocessor directives  */
-#include<sys/types.h>
-#include<sys/stat.h>
-#include <fcntl.h>
+# include<sys/types.h>
+# include<sys/stat.h>
+# include <fcntl.h>
 
-/*Definition of ERROR_SIGNAL */
-typedef enum e_sig_err {SIGERR}	t_sig_err;
+/* Definition of boolean type  */
+typedef enum e_bool
+{
+			FALSE,
+			TRUE
+}			t_bool;
 
+/* Definition of ERROR_SIGNAL  */
+typedef enum e_sig_err {
+	ERR_OPEN,
+	ERR_ARG_LOW,
+	ERR_ARG_HIGH,
+	ERR__LENGHT
+}	t_sig_err;
+
+/* It required by exit_error in <main.c> to handle differents
+   types of errors  */
 typedef struct s_error
 {
 	int		sig_err;

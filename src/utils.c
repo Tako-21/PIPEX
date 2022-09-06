@@ -6,12 +6,23 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:00 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/02 14:25:05 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:19:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "tools.h"
 #include <stdlib.h>
+#include <unistd.h>
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 static void	ft_putchar_fd(char c, int fd)
 {
@@ -30,3 +41,42 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
+char	*ft_strnchr(char *s1, char *s2, size_t len)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && (s1[i] || s2[i]) && --len)
+		i++;
+	if (s1[i] == s2[i])
+		return (&s1[i]);
+	return (NULL);
+}
+
+char	*ft_strjoin(char *line, char *buffer)
+{
+	char	*p;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	p = malloc(sizeof(char) * (ft_strlen((char *)line)
+				+ ft_strlen((char *)buffer)) + 1);
+	if (!p)
+		return (NULL);
+	if (line != NULL)
+	{
+		while (line[i])
+		{
+			p[i] = line[i];
+			i++;
+		}
+	}
+	while (buffer[j])
+		p[i++] = buffer[j++];
+	p[i] = '\0';
+	if (line != NULL)
+		free(line);
+	return (p);
+}

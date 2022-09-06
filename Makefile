@@ -4,6 +4,7 @@ CC = cc
 
 # CFLAGS = -Wall -Werror -Wextra
 
+CFLAGS = -g3
 SRC_PATH = src/
 INC_PATH = inc/
 OBJ_PATH = obj/
@@ -11,7 +12,10 @@ OBJ_PATH = obj/
 # SRC = main.c
 SRCS = $(addprefix $(DSRC),\
 		main.c\
-		parse_args.c)
+		get_path.c\
+		get_cmd.c\
+		split.c\
+		utils.c)
 # SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = ${SRCS:.c=.o}

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 18:17:08 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/09/02 13:38:34 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/09/06 19:34:25 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "get_path.h"
+#include "tools.h"
+#include "utils.h"
+#include <stdio.h>
 
-void		ft_putstr_fd(char *s, int fd);
-static void	ft_putchar_fd(char c, int fd);
-char 		*ft_strnchr(const char *s1, const char *s2, size_t len);
-size_t		ft_strlen(const char *str);
+char	**get_path(char	*env[])
+{
+	char	*path;
 
-#endif
+	path = ft_strnchr(*env, "PATH", ft_strlen("PATH="));
+	while (*env && !path)
+	{
+		path = ft_strnchr(*env, "PATH=", ft_strlen("PATH="));
+		env++;
+	}
+	return (ft_split(path, ':'));
+}
