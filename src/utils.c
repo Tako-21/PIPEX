@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:00 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 19:19:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:10:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strjoin(char *line, char *buffer)
 	j = 0;
 	i = 0;
 	p = malloc(sizeof(char) * (ft_strlen((char *)line)
-				+ ft_strlen((char *)buffer)) + 1);
+				+ ft_strlen((char *)buffer)) + 2);
 	if (!p)
 		return (NULL);
 	if (line != NULL)
@@ -73,10 +73,10 @@ char	*ft_strjoin(char *line, char *buffer)
 			i++;
 		}
 	}
+	p[i] = '/';
+	i++;
 	while (buffer[j])
 		p[i++] = buffer[j++];
-	p[i] = '\0';
-	if (line != NULL)
-		free(line);
+	p[i + 1] = '\0';
 	return (p);
 }

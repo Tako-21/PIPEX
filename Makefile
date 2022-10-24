@@ -11,10 +11,14 @@ OBJ_PATH = obj/
 
 # SRC = main.c
 SRCS = $(addprefix $(DSRC),\
-		main.c\
-		get_path.c\
-		get_cmd.c\
-		split.c\
+		check_args.c		\
+		check_permission.c	\
+		error.c				\
+		get_cmd.c			\
+		get_path.c			\
+		main.c				\
+		path_cmd.c			\
+		split.c				\
 		utils.c)
 # SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 

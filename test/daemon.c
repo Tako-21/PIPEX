@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 13:38:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:37 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/19 18:12:12 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/19 18:50:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get.h"
-#include "tools.h"
-#include "utils.h"
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-char	**get_path(char	*env[])
+int	main(void)
 {
-	char	*path;
+	int	pid;
 
-	path = ft_strnchr(*env, "PATH", ft_strlen("PATH="));
-	while (*env && !path)
-	{
-		path = ft_strnchr(*env, "PATH=/", ft_strlen("PATH=/"));
-		env++;
-	}
-	return (ft_split(path, ':'));
+	// pid = fork();
+
+	printf("Hey\n");
+	daemon(1, 1);
+	sleep(5);
+	printf("Yo\n");
+	// if (pid == -1)
+	// 	perror("fork");
+	// else if (pid == 0)
+	// {
+	// 	// We are in the parent process
+	// }
+	// else if (pid > 0)
+	// {
+	// 	// We are in the child process
+
+	// }
 }

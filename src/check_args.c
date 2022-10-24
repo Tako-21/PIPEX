@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 13:38:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:37 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/24 15:39:33 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/24 15:55:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get.h"
 #include "tools.h"
-#include "utils.h"
-#include <stdio.h>
+#include "check_error.h"
 
-char	**get_path(char	*env[])
+void	parse_args(int argc)
 {
-	char	*path;
-
-	path = ft_strnchr(*env, "PATH", ft_strlen("PATH="));
-	while (*env && !path)
-	{
-		path = ft_strnchr(*env, "PATH=/", ft_strlen("PATH=/"));
-		env++;
-	}
-	return (ft_split(path, ':'));
+	if (argc > 5)
+		exit_error(ERR_ARG_HIGH);
+	else if (argc < 5)
+		exit_error(ERR_ARG_LOW);
 }

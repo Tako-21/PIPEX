@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 17:51:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:40:22 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef enum e_sig_err {
 	ERR_OPEN,
 	ERR_ARG_LOW,
 	ERR_ARG_HIGH,
+	ERR_EXIST,
+	ERR_EXE,
 	ERR__LENGHT
 }	t_sig_err;
 
@@ -40,5 +42,12 @@ typedef struct s_error
 	int		sig_err;
 	char	*sig_msg;
 }			t_error;
+
+typedef struct s_data
+{
+	int		fd1;
+	int		fd2;
+	char	**path;
+}			t_data;
 
 #endif

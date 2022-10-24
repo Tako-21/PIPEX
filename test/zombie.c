@@ -1,18 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.h                                          :+:      :+:    :+:   */
+/*   zombie.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 19:37:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/09/06 19:45:55 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/22 17:54:33 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/22 18:09:41 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_CMD_H
-# define GET_CMD_H
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-char	*get_cmd(char	*sh_command);
+int	main(void)
+{
+	int	pid;
 
-#endif
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	// if (pid > 0)
+	if (pid == 0)
+	{
+		printf("Bye children...\n");
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		sleep(10);
+		printf("Hi from parent process\n");
+	}
+}
