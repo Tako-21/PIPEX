@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_permission.c                                 :+:      :+:    :+:   */
+/*   check_bin_permission.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:36:50 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 17:18:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/10/24 19:52:17 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,43 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include "exec.h"
 
-void	check_permission(char **argv, char **env, t_data *data)
+#include <sys/wait.h>
+#include <stdlib.h>
+
+void	check_bin_permission(int argc, char **argv, char **env, t_data *data)
 {
-	int		exe;
-	char	*cmd_path;
-	char	*cmd_bin;
-	char	**cmd_args;
+	u_int8_t	exe;
+	char		**bin_args;
+	char		*bin_path;
+	char		*bin;
 
-	cmd_args = ft_split(argv[2], ' ');
-	cmd_bin = get_cmd(argv[2]);
+	bin_args = ft_split(argv[2], ' ');
+	bin = get_bin(argv[2]);
 	exe = 0;
 	data->path = get_path(env);
 	if (access(argv[1], F_OK) == -1)
 		return (exit_error(ERR_EXIST));
 	while (*data->path)
 	{
-		cmd_path = ft_strjoin(*data->path, cmd_bin);
-		printf("cmd_path : %s\n", cmd_path);
-		if (!access(cmd_path, X_OK))
-		{
-			exe = 1;
+		bin_path = ft_strjoin(*data->path, bin);
+		if (!access(bin_path, X_OK))
 			break ;
-		}
 		data->path++;
 	}
-	if (!exe)
-		return (exit_error(ERR_EXE));
-	data->fd1 = open(argv[1], O_RDONLY);
-	// data->fd2 = open(argv[4], O_RDONLY);
-	if ((data->fd1 == -1) || (data->fd2 == -1))
-		return (exit_error(ERR_OPEN));
-	execve(cmd_path, cmd_args, env);
+	if (access(bin_path, X_OK == -1))
+		exit_error(ERR_EXE);
+	if (data->fd[0] == -1)
+		exit_error(ERR_OPEN);
+	check_file_permission(argc, argv, env, data);
+	exec_bin(bin_path, bin_args, env);
+}
+
+void	check_file_permission(int argc, char **argv, char **env, t_data *data)
+{
+	data->fd[0] = open(argv[1], O_RDONLY);
+	data->fd[1] = open(argv[argc -1], O_RDONLY);
+	if (data->fd[0] == -1 || data->fd[1] == -1)
+		exit_error(ERR_OPEN);
 }

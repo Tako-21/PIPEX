@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 16:40:22 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:56:35 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ typedef struct s_error
 
 typedef struct s_data
 {
-	int		fd1;
-	int		fd2;
+	int		fd[2];
 	char	**path;
 }			t_data;
 

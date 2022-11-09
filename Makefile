@@ -14,12 +14,14 @@ SRCS = $(addprefix $(DSRC),\
 		check_args.c		\
 		check_permission.c	\
 		error.c				\
-		get_cmd.c			\
+		get_bin.c			\
 		get_path.c			\
 		main.c				\
 		path_cmd.c			\
 		split.c				\
+		exec.c\
 		utils.c)
+
 # SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = ${SRCS:.c=.o}

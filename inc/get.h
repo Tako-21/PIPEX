@@ -6,14 +6,14 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:41:15 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 15:43:33 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:37:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_H
 # define GET_H
 
-char	*get_cmd(char	*sh_command);
+char	*get_bin(char	*sh_command);
 char	**get_path(char	*env[]);
 
 #endif

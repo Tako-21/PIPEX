@@ -1,52 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sys_wait.c                                         :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 16:00:25 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/25 14:09:48 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/25 14:23:17 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include "check_error.h"
 
-// void	spwan(void)
-// {
-// 	int	pid;
-
-// }
-
-int	main(void)
+void	exec_bin(char *bin_path, char **bin_args, char **env)
 {
-	int	pid;
-	int	child_status;
+	unsigned int	pid;
+	int				w_status;
 
-	printf("Start of the program\n");
 	pid = fork();
 	if (pid == -1)
+	{
+		perror("fork");
 		exit(EXIT_FAILURE);
+	}
 	else if (pid == 0)
-	{
-		sleep(3);
-		printf("Hi we are in the child process\n");
-	}
-	else if (pid > 0)
-	{
-		sleep(3);
-		printf("Hi we are in the parent process\n");
-	}
-	wait(&child_status);
-	printf("going to sleep\n");
-	sleep(3);
-	if (WIFEXITED(child_status))
-			printf("Child terminated with status : %d\n", WIFEXITED(child_status));
-	else
+		execve(bin_path, bin_args, env);
+	waitpid(-1, &w_status, 0);
+	if (!WIFEXITED (w_status))
 		exit(EXIT_FAILURE);
-	printf("End of the program\tpid : %d\n", pid);
+	printf("command was executed successfuly\n");\
 }

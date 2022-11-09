@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 15:53:56 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/25 13:39:48 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/25 13:54:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get.h"
-#include <stdlib.h>
+#ifndef EXEC_H
+# define EXEC_h
 
-char	*get_cmd(char *sh_cmd)
-{
-	char	*cmd;
-	int		len;
+void	exec_bin(char *bin_path, char **bin_args, char **env);
 
-	len = 0;
-	while (sh_cmd[len] && sh_cmd[len] != ' ')
-		len++;
-	cmd = malloc(sizeof(char) * (len + 1));
-	len = 0;
-	while (sh_cmd[len] && sh_cmd[len] != ' ')
-	{
-		cmd[len] = sh_cmd[len];
-		len++;
-	}
-	return (cmd);
-}
+#endif

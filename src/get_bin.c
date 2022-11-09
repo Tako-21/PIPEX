@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 15:45:35 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 20:17:50 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/24 18:37:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_error.h"
-#include <unistd.h>
-#include "tools.h"
+#include "get.h"
 #include <stdlib.h>
-#include "utils.h"
-#include <stdio.h>
 
-void	exit_error(int sig_err)
+char	*get_bin(char *sh_cmd)
 {
-	const char	*map_error[ERR__LENGHT] = {
-		"Error while opening file\n",
-		"Too few arguments.\n",
-		"Too many arguments.\n",
-		"No such file or directory.\n",
-		"Command not found.\n"
-	};
-	ft_putstr_fd((char *)map_error[sig_err], STDERR_FILENO);
-	exit(EXIT_FAILURE);
+	char	*cmd;
+	int		len;
+
+	len = 0;
+	while (sh_cmd[len] && sh_cmd[len] != ' ')
+		len++;
+	cmd = malloc(sizeof(char) * (len + 1));
+	len = 0;
+	while (sh_cmd[len] && sh_cmd[len] != ' ')
+	{
+		cmd[len] = sh_cmd[len];
+		len++;
+	}
+	return (cmd);
 }
