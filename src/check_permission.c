@@ -22,32 +22,23 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-void	check_bin_permission(int argc, char **argv, char **env, t_data *data)
+void	check_bin_permission(int argc, char **argv, char **env, t_data *data, int index)
 {
-	u_int8_t	exe;
-	char		**bin_args;
-	char		*bin_path;
-	char		*bin;
-
-	bin_args = ft_split(argv[2], ' ');
-	bin = get_bin(argv[2]);
-	exe = 0;
+	data->bin_args = ft_split(argv[index], ' ');
+	data->bin = get_bin(argv[index]);
 	data->path = get_path(env);
 	if (access(argv[1], F_OK) == -1)
 		return (exit_error(ERR_EXIST));
 	while (*data->path)
 	{
-		bin_path = ft_strjoin(*data->path, bin);
-		if (!access(bin_path, X_OK))
+		data->bin_path = ft_strjoin(*data->path, data->bin);
+		if (!access(data->bin_path, X_OK))
 			break ;
 		data->path++;
 	}
-	if (access(bin_path, X_OK == -1))
+	if (access(data->bin_path, X_OK == -1))
 		exit_error(ERR_EXE);
-	if (data->fd[0] == -1)
-		exit_error(ERR_OPEN);
 	check_file_permission(argc, argv, env, data);
-	exec_bin(bin_path, bin_args, env);
 }
 
 void	check_file_permission(int argc, char **argv, char **env, t_data *data)

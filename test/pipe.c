@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:11:59 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/08 20:56:57 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:29:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ int	main(int argc, char **argv, char **env)
 	int			fd[2];
 	int			pid;
 	int			w_status;
-	int			file_desc;
-	static char	*args[] = {
+	char *const	args[] = {
 		"ls",
 		"-l"
 	};
 
-	file_desc = open("Hello", O_WRONLY | O_APPEND);
 	if (pipe(fd) == -1)
 		exit(EXIT_FAILURE);
 
@@ -43,18 +41,25 @@ int	main(int argc, char **argv, char **env)
 	{
 		// wait(NULL);
 		close(fd[0]);
-		dup2(file_desc, 1);
-		execve("/usr/bin/ls", args, env);
-		write(fd[1], msg1, 15);
-		write(fd[1], msg2, 15);
+		dup2(fd[1], 1);
 		close(fd[1]);
+		execve("/usr/bin/ls", args, env);
+		// write(fd[file_desc], msg1, 15);
+		// write(fd[file_desc], msg2, 15);
 	}
 	else
 	{
 		waitpid(-1, &w_status, 0);
+		char *const	args_wc[] = {
+			"wc",
+			"-l"
+		};
 		if (WIFEXITED(w_status))
 			printf("child process exited normally\n");
 		close(fd[1]);
+		dup2(fd[0], 0);
+		close(fd[0]);
+		execve("/usr/bin/wc", args_wc, env);
 		for (int i = 0; i < 2; i++){
 			if (read(fd[0], buf, 15) == -1)
 				exit(EXIT_FAILURE);
