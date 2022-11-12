@@ -42,8 +42,8 @@ void	check_bin_permission(int argc, char **argv, char **env, t_data *data, int i
 		data->bin_path = NULL;
 		i++;
 	}
-	// if (access(data->bin_path, X_OK == -1))
-	// 	exit_error(ERR_EXE);
+	if (access(data->bin_path, X_OK == -1))
+		exit_error(ERR_EXE);
 }
 
 void	check_file_permission(int argc, char **argv, char **env, t_data *data)
