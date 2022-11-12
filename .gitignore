@@ -1,4 +1,6 @@
 test/
 obj/
+infile
+outfile
+test.c
 pipex
-*.c
