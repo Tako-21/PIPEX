@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:00 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 17:10:06 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:50:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
-		i++;
+	if (str)
+	{
+		while (str[i])
+			i++;
+	}
 	return (i);
 }
 
@@ -62,7 +65,7 @@ char	*ft_strjoin(char *line, char *buffer)
 	j = 0;
 	i = 0;
 	p = malloc(sizeof(char) * (ft_strlen((char *)line)
-				+ ft_strlen((char *)buffer)) + 2);
+				+ ft_strlen((char *)buffer)) + 3);
 	if (!p)
 		return (NULL);
 	if (line != NULL)
@@ -77,6 +80,6 @@ char	*ft_strjoin(char *line, char *buffer)
 	i++;
 	while (buffer[j])
 		p[i++] = buffer[j++];
-	p[i + 1] = '\0';
+	p[i] = '\0';
 	return (p);
 }

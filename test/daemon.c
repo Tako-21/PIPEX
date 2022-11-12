@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 16:54:51 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/19 18:12:12 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/19 18:50:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void		ft_putstr_fd(char *s, int fd);
-static void	ft_putchar_fd(char c, int fd);
-char 		*ft_strnchr(const char *s1, const char *s2, size_t len);
-size_t		ft_strlen(const char *str);
-char		*ft_strjoin(char *line, char *buffer);
-char		**ft_split(char const *s, char c);
-void		freemem(int argc, t_data *data);
-void	free_array(char **arr);
+int	main(void)
+{
+	int	pid;
 
-#endif
+	// pid = fork();
+
+	printf("Hey\n");
+	daemon(1, 1);
+	sleep(5);
+	printf("Yo\n");
+	// if (pid == -1)
+	// 	perror("fork");
+	// else if (pid == 0)
+	// {
+	// 	// We are in the parent process
+	// }
+	// else if (pid > 0)
+	// {
+	// 	// We are in the child process
+
+	// }
+}

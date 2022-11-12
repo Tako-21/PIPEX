@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 13:17:47 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/12 14:24:01 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	std_binout(char *bin_path, char **bin_args, char **env, t_data *data)
 	unsigned int	pid;
 	int				w_status;
 
+	printf("test\n");
 	if (pipe(data->pfd) == -1)
 		exit_error(ERR_PIPE);
 	pid = fork();

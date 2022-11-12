@@ -1,0 +1,66 @@
+Hello World
+Hiiii
+total 148
+-rwxr-xr-x 1 mmeguedm 2022_paris 16520 Nov  8 20:55 a.out
+-rwxr-xr-x 1 mmeguedm 2022_paris 16040 Oct 20 15:04 daemon.bin
+-rw-r--r-- 1 mmeguedm 2022_paris  1267 Oct 19 18:50 daemon.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:21 fork
+-rw-r--r-- 1 mmeguedm 2022_paris  1354 Oct 20 15:20 fork.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16296 Oct 20 16:23 fork_failre
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:57 fork_failure
+-rw-r--r-- 1 mmeguedm 2022_paris  1537 Oct 20 16:57 fork_failure.c
+-rw-r--r-- 1 mmeguedm 2022_paris    18 Nov  8 20:55 Hello
+-rw-r--r-- 1 mmeguedm 2022_paris  1871 Nov  8 20:55 pipe.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16184 Oct 24 13:33 sigchld
+-rw-r--r-- 1 mmeguedm 2022_paris  1758 Oct 24 13:36 sigchld.c
+-rw-r--r-- 1 mmeguedm 2022_paris  1589 Oct 25 14:09 sys_wait.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16120 Oct 22 18:11 zombie
+-rw-r--r-- 1 mmeguedm 2022_paris  1235 Oct 22 18:09 zombie.c
+total 148
+-rwxr-xr-x 1 mmeguedm 2022_paris 16520 Nov 12 10:34 a.out
+-rwxr-xr-x 1 mmeguedm 2022_paris 16040 Oct 20 15:04 daemon.bin
+-rw-r--r-- 1 mmeguedm 2022_paris  1267 Oct 19 18:50 daemon.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:21 fork
+-rw-r--r-- 1 mmeguedm 2022_paris  1354 Oct 20 15:20 fork.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16296 Oct 20 16:23 fork_failre
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:57 fork_failure
+-rw-r--r-- 1 mmeguedm 2022_paris  1537 Oct 20 16:57 fork_failure.c
+-rw-r--r-- 1 mmeguedm 2022_paris   944 Nov  8 20:55 Hello
+-rw-r--r-- 1 mmeguedm 2022_paris  1871 Nov  8 20:56 pipe.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16184 Oct 24 13:33 sigchld
+-rw-r--r-- 1 mmeguedm 2022_paris  1758 Oct 24 13:36 sigchld.c
+-rw-r--r-- 1 mmeguedm 2022_paris  1589 Oct 25 14:09 sys_wait.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16120 Oct 22 18:11 zombie
+-rw-r--r-- 1 mmeguedm 2022_paris  1235 Oct 22 18:09 zombie.c
+total 148
+-rwxr-xr-x 1 mmeguedm 2022_paris 16520 Nov 12 10:39 a.out
+-rwxr-xr-x 1 mmeguedm 2022_paris 16040 Oct 20 15:04 daemon.bin
+-rw-r--r-- 1 mmeguedm 2022_paris  1267 Oct 19 18:50 daemon.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:21 fork
+-rw-r--r-- 1 mmeguedm 2022_paris  1354 Oct 20 15:20 fork.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16296 Oct 20 16:23 fork_failre
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:57 fork_failure
+-rw-r--r-- 1 mmeguedm 2022_paris  1537 Oct 20 16:57 fork_failure.c
+-rw-r--r-- 1 mmeguedm 2022_paris  1870 Nov 12 10:34 Hello
+-rw-r--r-- 1 mmeguedm 2022_paris  1871 Nov 12 10:39 pipe.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16184 Oct 24 13:33 sigchld
+-rw-r--r-- 1 mmeguedm 2022_paris  1758 Oct 24 13:36 sigchld.c
+-rw-r--r-- 1 mmeguedm 2022_paris  1589 Oct 25 14:09 sys_wait.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16120 Oct 22 18:11 zombie
+-rw-r--r-- 1 mmeguedm 2022_paris  1235 Oct 22 18:09 zombie.c
+total 148
+-rwxr-xr-x 1 mmeguedm 2022_paris 16472 Nov 12 10:40 a.out
+-rwxr-xr-x 1 mmeguedm 2022_paris 16040 Oct 20 15:04 daemon.bin
+-rw-r--r-- 1 mmeguedm 2022_paris  1267 Oct 19 18:50 daemon.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:21 fork
+-rw-r--r-- 1 mmeguedm 2022_paris  1354 Oct 20 15:20 fork.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16296 Oct 20 16:23 fork_failre
+-rwxr-xr-x 1 mmeguedm 2022_paris 16256 Oct 20 16:57 fork_failure
+-rw-r--r-- 1 mmeguedm 2022_paris  1537 Oct 20 16:57 fork_failure.c
+-rw-r--r-- 1 mmeguedm 2022_paris  2796 Nov 12 10:39 Hello
+-rw-r--r-- 1 mmeguedm 2022_paris  1893 Nov 12 10:40 pipe.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16184 Oct 24 13:33 sigchld
+-rw-r--r-- 1 mmeguedm 2022_paris  1758 Oct 24 13:36 sigchld.c
+-rw-r--r-- 1 mmeguedm 2022_paris  1589 Oct 25 14:09 sys_wait.c
+-rwxr-xr-x 1 mmeguedm 2022_paris 16120 Oct 22 18:11 zombie
+-rw-r--r-- 1 mmeguedm 2022_paris  1235 Oct 22 18:09 zombie.c

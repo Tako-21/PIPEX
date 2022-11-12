@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:45:35 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 12:45:00 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:13:05 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	exit_error(int sig_err)
 {
 	const char	*map_error[ERR__LENGHT] = {
 		"Error while opening file\n",
-		"Too few arguments\n",
-		"Too many arguments\n",
+		"Invalid number of arguments\n",
 		"No such file or directory\n",
 		"Command not found\n",
 		"An error occurred while executing fork\n"
-		"An error occurred while executing pipe\n"
+		"An error occurred while executing pipe\n",
+		"Memory error\n"
 	};
 	ft_putstr_fd((char *)map_error[sig_err], STDERR_FILENO);
 	exit(EXIT_FAILURE);

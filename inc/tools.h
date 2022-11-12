@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 13:07:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:12:39 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ typedef enum e_bool
 /* Definition of ERROR_SIGNAL  */
 typedef enum e_sig_err {
 	ERR_OPEN,
-	ERR_ARG_LOW,
-	ERR_ARG_HIGH,
+	ERR_ARG,
 	ERR_EXIST,
 	ERR_EXE,
 	ERR_FORK,
 	ERR_PIPE,
+	ERR_MEM,
 	ERR__LENGHT
 }	t_sig_err;
 

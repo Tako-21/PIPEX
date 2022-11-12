@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   zombie.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 15:39:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 20:10:41 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/10/22 17:54:33 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/10/22 18:09:41 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
-#include "check_error.h"
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void	parse_args(int argc)
+int	main(void)
 {
-	if (argc > 5)
-		exit_error(ERR_ARG_HIGH);
-	else if (argc < 5)
-		exit_error(ERR_ARG_LOW);
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	// if (pid > 0)
+	if (pid == 0)
+	{
+		printf("Bye children...\n");
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		sleep(10);
+		printf("Hi from parent process\n");
+	}
 }

@@ -18,6 +18,7 @@ SRCS = $(addprefix $(DSRC),\
 		get_path.c			\
 		main.c				\
 		path_cmd.c			\
+		free.c				\
 		split.c				\
 		exec.c\
 		utils.c)
