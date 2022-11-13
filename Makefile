@@ -11,7 +11,6 @@ OBJ_PATH = obj/
 
 # SRC = main.c
 SRCS = $(addprefix $(DSRC),\
-		check_args.c		\
 		check_permission.c	\
 		error.c				\
 		get_bin.c			\

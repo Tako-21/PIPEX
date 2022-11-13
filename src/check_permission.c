@@ -51,7 +51,7 @@ void	check_file_permission(int argc, char **argv, char **env, t_data *data)
 	if (access(argv[1], F_OK) == -1 || access(argv[argc - 1], F_OK) == -1)
 		return (exit_error(ERR_EXIST));
 	data->fd[0] = open(argv[1], O_RDONLY);
-	data->fd[1] = open(argv[argc -1], O_RDONLY);
+	data->fd[1] = open(argv[argc -1], O_WRONLY | O_CREAT, S_IRWXU);
 	if (data->fd[0] == -1)
 		exit_error(ERR_OPEN);
 	if (data->fd[1] == -1)

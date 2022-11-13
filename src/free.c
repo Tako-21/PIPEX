@@ -6,26 +6,13 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 17:21:03 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:39:47 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 #include <stdlib.h>
 #include <unistd.h>
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while(arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 
 void	freemem(int argc, t_data *data)
 {
@@ -45,6 +32,12 @@ void	freemem(int argc, t_data *data)
 		free(data->bin_args[i]);
 	if (data->bin_args)
 		free(data->bin_args);
+}
+
+void	close_fd(t_data *data)
+{
+	close(data->pfd[0]);
+	close(data->pfd[1]);
 	close(data->fd[0]);
 	close(data->fd[1]);
 }
