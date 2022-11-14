@@ -18,6 +18,7 @@ SRCS = $(addprefix $(DSRC),\
 		main.c				\
 		path_cmd.c			\
 		free.c				\
+		malloc.c			\
 		split.c				\
 		exec.c				\
 		parsing.c		\

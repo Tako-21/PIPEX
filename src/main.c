@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 17:56:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:09:28 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,23 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
+	data.collect = NULL;
 	data.args.argc = argc;
 	data.args.argv = argv;
 	data.args.env = env;
-	check_requirement(&data);
-	check_file_permission(&data);
-	check_bin_permission(&data, 2);
-	std_binout(data.bin_path, data.bin_args, env, &data);
-	freemem(argc, &data);
-	check_bin_permission(&data, 3);
-	std_binin(data.bin_path, data.bin_args, env, &data);
+
+	ft_lstpush(&data.collect, malloc(1));
+	ft_lstpush(&data.collect, malloc(1));
+	ft_lstpush(&data.collect, malloc(1));
+	printf("lst_size : %d\n", ft_lstsize(data.collect));
+
+	// check_requirement(&data);
+	// check_file_permission(&data);
+	// check_bin_permission(&data, 2);
+	// std_binout(data.bin_path, data.bin_args, env, &data);
+	// freemem(argc, &data);
+	// check_bin_permission(&data, 3);
+	// std_binin(data.bin_path, data.bin_args, env, &data);
 
 	// printf("command	: %s \n", get_bin(argv[2]));
 	// printf("path 	: %s \n", get_path(argv[2]));

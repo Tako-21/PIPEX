@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 11:01:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:56:35 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	freemem(int argc, t_data *data)
 		free(data->bin);
 	if (data->bin_path)
 		free(data->bin_path);
-	while (data->path[++i])
+	while (data->path && data->path[++i])
 		free(data->path[i]);
 	if (data->path)
 		free(data->path);
 	i = -1;
-	while (data->bin_args[++i] != NULL)
+	while (data->bin_args && data->bin_args[++i] != NULL)
 		free(data->bin_args[i]);
 	if (data->bin_args)
 		free(data->bin_args);

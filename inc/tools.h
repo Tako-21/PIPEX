@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 16:25:19 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:06:53 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,22 @@ typedef struct s_args
 	char	**env;
 }			t_args;
 
+typedef struct	s_collector
+{
+	void				*collect;
+	struct s_collector	*next;
+}				t_collector;
+
 typedef struct s_data
 {
-	int		pfd[2];
-	int		fd[2];
-	char	**path;
-	char	**bin_args;
-	char	*bin_path;
-	char	*bin;
-	t_args	args;
+	int			pfd[2];
+	int			fd[2];
+	char		**path;
+	char		**bin_args;
+	char		*bin_path;
+	char		*bin;
+	t_collector	*collect;
+	t_args		args;
 }			t_data;
 
 #endif
