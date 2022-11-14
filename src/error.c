@@ -6,11 +6,11 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:45:35 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 15:13:05 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/14 13:36:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_error.h"
+#include "error.h"
 #include <unistd.h>
 #include "tools.h"
 #include <stdlib.h>
@@ -24,9 +24,11 @@ void	exit_error(int sig_err)
 		"Invalid number of arguments\n",
 		"No such file or directory\n",
 		"Command not found\n",
-		"An error occurred while executing fork\n"
+		"An error occurred while executing fork\n",
 		"An error occurred while executing pipe\n",
-		"Memory error\n"
+		"Memory error\n",
+		"No environnement has been detected. Did you try to kill me ?\n",
+		"Path has been dectivate. Did you try to kill me ?\n"
 	};
 	ft_putstr_fd((char *)map_error[sig_err], STDERR_FILENO);
 	exit(EXIT_FAILURE);

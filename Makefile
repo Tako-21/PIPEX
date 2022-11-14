@@ -19,7 +19,8 @@ SRCS = $(addprefix $(DSRC),\
 		path_cmd.c			\
 		free.c				\
 		split.c				\
-		exec.c\
+		exec.c				\
+		parsing.c		\
 		utils.c)
 
 # SRCS	= $(addprefix $(SRC_PATH), $(SRC))

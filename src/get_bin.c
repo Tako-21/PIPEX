@@ -6,13 +6,14 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/12 15:40:10 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:45:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get.h"
 #include <stdlib.h>
 
+#include <stdio.h>
 char	*get_bin(char *sh_cmd)
 {
 	char	*cmd;

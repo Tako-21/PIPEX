@@ -12,7 +12,7 @@
 
 #include "tools.h"
 #include "get.h"
-#include "check_error.h"
+#include "error.h"
 #include "utils.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -22,17 +22,17 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-void	check_bin_permission(int argc, char **argv, char **env, t_data *data, int index)
+void	check_bin_permission(t_data *data, int index)
 {
 	int	i;
 
 	i = 0;
-	data->bin_args = ft_split(argv[index], ' ');
-	data->bin = get_bin(argv[index]);
-	data->path = get_path(env);
-	data->bin_path = NULL;
-	if (!data->bin_args || !data->bin || !data->path)
-		return (freemem(argc, data), exit_error(ERR_MEM));
+	parse_args(data, index);
+	if (!access(data->bin, X_OK))
+	{
+		data->bin_path = data->bin;
+		return ;
+	}
 	while (data->path[i])
 	{
 		data->bin_path = ft_strjoin(data->path[i], data->bin);
@@ -46,12 +46,10 @@ void	check_bin_permission(int argc, char **argv, char **env, t_data *data, int i
 		exit_error(ERR_EXE);
 }
 
-void	check_file_permission(int argc, char **argv, char **env, t_data *data)
+void	check_file_permission(t_data *data)
 {
-	if (access(argv[1], F_OK) == -1 || access(argv[argc - 1], F_OK) == -1)
-		return (exit_error(ERR_EXIST));
-	data->fd[0] = open(argv[1], O_RDONLY);
-	data->fd[1] = open(argv[argc -1], O_WRONLY | O_CREAT, S_IRWXU);
+	data->fd[0] = open(data->args.argv[1], O_RDONLY);
+	data->fd[1] = open(data->args.argv[data->args.argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->fd[0] == -1)
 		exit_error(ERR_OPEN);
 	if (data->fd[1] == -1)
