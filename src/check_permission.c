@@ -30,7 +30,7 @@ void	check_bin_permission(t_data *data, int index)
 	parse_args(data, index);
 	if (!access(data->bin, X_OK))
 	{
-		data->bin_path = ft_strdup(data->bin	);
+		data->bin_path = ft_strdup(data->bin);
 		return ;
 	}
 	while (data->path[i])

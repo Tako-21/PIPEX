@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/17 18:23:38 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:04:02 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ void	freemem(t_data *data)
 
 void	close_fd(t_data *data)
 {
-	close(data->pfd[0]);
-	close(data->pfd[1]);
+	int	i;
+
+	i = -1;
+	while (++i < data->n_pipes * 2)
+		close(data->pfd[i]);
 	close(data->fd[0]);
 	close(data->fd[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/18 12:11:52 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:42:24 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void		mcollect(t_collector **lst, void	*addr_malloc);
 int			lstsize(t_collector *st);
 void		lstfree(t_collector **lst);
 char		*ft_strdup(const char *src);
+void	init(int argc, char **argv, char **env, t_data *data);
 
 #endif

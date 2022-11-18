@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/18 12:01:09 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:11:49 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ typedef struct	s_collector
 
 typedef struct s_data
 {
-	int			*pfd;
-	int			fd[2];
-	char		**path;
-	char		**bin_args;
-	char		*bin_path;
-	char		*bin;
-	u_int8_t	n_pipes;
-	t_collector	*collect;
-	t_args		args;
+	int		pfd[4];
+	int		fd[2];
+	char	**path;
+	char	**bin_args;
+	char	*bin_path;
+	char	*bin;
+	int		n_pipes;
+	t_collector		*collect;
+	t_args			args;
 }			t_data;
 
 #endif

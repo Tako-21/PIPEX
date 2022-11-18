@@ -4,7 +4,7 @@ CC = cc
 
 # CFLAGS = -Wall -Werror -Wextra
 
-CFLAGS = -g3 -Wall
+CFLAGS = -g3
 SRC_PATH = src/
 INC_PATH = inc/
 OBJ_PATH = obj/
@@ -13,8 +13,9 @@ OBJ_PATH = obj/
 SRCS = $(addprefix $(DSRC),\
 		check_permission.c	\
 		error.c				\
-		get.c			\
+		get.c				\
 		main.c				\
+		init.c				\
 		lst.c				\
 		free.c				\
 		split.c				\

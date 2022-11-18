@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 13:39:48 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/18 17:58:25 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/11/18 17:34:58 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/11/18 19:11:53 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_h
-
+#include "get.h"
 #include "tools.h"
+#include "error.h"
+#include <stdlib.h>
 
-void	exe_lastbin(t_data *data);
-void	exe_firstbin(t_data *data);
-void	exe_bin(t_data *data);
+void	init(int argc, char **argv, char **env,  t_data *data)
+{
+	data->collect = NULL;
+	data->args.argc = argc;
+	data->args.argv = argv;
+	data->args.env = env;
+	// data->n_pipes = 2 * (argc - 4);
+	// data->pfd = malloc(sizeof(int) * data->n_pipes);
 
-#endif
+	check_requirement(data);
+	check_file_permission(data);
+}
