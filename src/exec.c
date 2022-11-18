@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 16:28:07 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 16:33:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 #include <stdlib.h>
 #include "error.h"
 
-void	std_binout(char *bin_path, char **bin_args, char **env, t_data *data)
+void	exe_binin(t_data *data)
 {
-	unsigned int	pid;
-	int				w_status;
+	uint8_t	pid;
+	int		status;
 
 	if (pipe(data->pfd) == -1)
 		exit_error(ERR_PIPE);
 	pid = fork();
-	if (pid == -1)
+	if (pid < 0)
 		exit_error(ERR_FORK);
-	if (pid == 0)
+	else if (pid == 0)
 	{
 		dup2(data->fd[0], STDIN_FILENO);
 		dup2(data->pfd[1], STDOUT_FILENO);
@@ -36,20 +36,62 @@ void	std_binout(char *bin_path, char **bin_args, char **env, t_data *data)
 		close(data->pfd[1]);
 		close(data->fd[0]);
 		close(data->fd[1]);
-		if (execve(bin_path, bin_args, env) == -1)
+		if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
 			exit_error(ERR_EXE);
+		printf("error\n");
+	}
+	// else
+	// 	wait(&status);
+}
+
+void	exe_binout(t_data *data)
+{
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid < 0)
+		exit_error(ERR_FORK);
+	else if (pid == 0)
+	{
+		dup2(data->pfd[0], STDIN_FILENO);
+		dup2(data->fd[1], STDOUT_FILENO);
+		close(data->pfd[1]);
+		close(data->pfd[0]);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
+			exit_error(ERR_EXE);
+		printf("error\n");
 	}
 }
 
-void	std_binin(char *bin_path, char **bin_args, char **env, t_data *data)
+void	exe_bin(t_data *data)
 {
-	dup2(data->pfd[0], STDIN_FILENO);
-	dup2(data->fd[1], STDOUT_FILENO);
-	close(data->pfd[1]);
-	close(data->pfd[0]);
-	close(data->fd[0]);
-	close(data->fd[1]);
-	if (execve(bin_path, bin_args, env) == -1)
-		exit_error(ERR_EXE);
+	int		pid;
+	int		status;
+	char	read_side[100];
 
+	pid = fork();
+	if (pid < 0)
+		exit_error(ERR_FORK);
+	if (pid == 0)
+	{
+		read(data->pfd[0], read_side, 100);
+		printf("read_side : %s\n", read_side);
+		dup2(data->pfd[0], STDIN_FILENO);
+		dup2(data->fd[1], STDOUT_FILENO);
+		close(data->pfd[0]);
+		close(data->pfd[0]);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
+			exit_error(ERR_EXE);
+	}
+	else
+	{
+		close(data->pfd[0]);
+		close(data->pfd[1]);
+		wait(&status);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:44:23 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 17:56:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:40:10 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	check_requirement(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->args.argc != 5)
-		exit_error(ERR_ARG);
 	if (!data->args.env || !*data->args.env)
 		exit_error(ERR_ENV);
 	while (data->args.env[i])
@@ -42,5 +40,5 @@ void	parse_args(t_data *data, int index)
 	data->path = get_path(data->args.env);
 	data->bin_path = NULL;
 	if (!data->bin_args || !data->bin || !data->path)
-		return (freemem(data->args.argc, data), exit_error(ERR_MEM));
+		return (freemem(data), exit_error(ERR_MEM));
 }

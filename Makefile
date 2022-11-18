@@ -4,7 +4,7 @@ CC = cc
 
 # CFLAGS = -Wall -Werror -Wextra
 
-CFLAGS = -g3
+CFLAGS = -g3 -Wall
 SRC_PATH = src/
 INC_PATH = inc/
 OBJ_PATH = obj/
@@ -13,16 +13,15 @@ OBJ_PATH = obj/
 SRCS = $(addprefix $(DSRC),\
 		check_permission.c	\
 		error.c				\
-		get_bin.c			\
-		get_path.c			\
+		get.c			\
 		main.c				\
-		path_cmd.c			\
+		lst.c				\
 		free.c				\
-		malloc.c			\
 		split.c				\
 		exec.c				\
-		parsing.c		\
-		utils.c)
+		parsing.c			\
+		utils.c				\
+		utils2.c)
 
 # SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 
@@ -34,10 +33,15 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@echo [CC] $<
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_PATH)
 
-all : $(OBJ_PATH) $(NAME)
+all : directories $(OBJ_PATH) $(NAME)
 
 $(NAME) : $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+		@printf "\n"
+		@echo "Compiling done"
+
+directories :
+	@mkdir -p $(OBJ_PATH)
 
 clean :
 		rm -rf $(OBJS)

@@ -30,12 +30,14 @@ void	check_bin_permission(t_data *data, int index)
 	parse_args(data, index);
 	if (!access(data->bin, X_OK))
 	{
-		data->bin_path = data->bin;
+		data->bin_path = ft_strdup(data->bin	);
 		return ;
 	}
 	while (data->path[i])
 	{
 		data->bin_path = ft_strjoin(data->path[i], data->bin);
+		if (!data->bin_path)
+			return (freemem(data), exit_error(ERR_MEM));
 		if (!access(data->bin_path, X_OK))
 			break ;
 		free(data->bin_path);

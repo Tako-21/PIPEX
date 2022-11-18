@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 18:56:35 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:23:38 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	freemem(int argc, t_data *data)
+void	freemem(t_data *data)
 {
 	int	i;
 

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 18:11:25 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 20:12:38 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/11/16 13:07:56 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/11/17 17:44:18 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "tools.h"
 #include <stdlib.h>
 
-void	ft_lstpush(t_collector **lst, void	*addr_malloc)
+void	mcollect(t_collector **lst, void	*addr_malloc)
 {
 	t_collector	*new;
 
@@ -25,7 +26,7 @@ void	ft_lstpush(t_collector **lst, void	*addr_malloc)
 	*lst = new;
 }
 
-int	ft_lstsize(t_collector *st)
+int	lstsize(t_collector *st)
 {
 	int	lenght;
 
@@ -36,4 +37,18 @@ int	ft_lstsize(t_collector *st)
 		lenght++;
 	}
 	return (lenght);
+}
+
+void	lstfree(t_collector **lst)
+{
+	t_collector	*tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		(*lst) = (*lst)->next;
+		free(tmp->collect);
+		free(tmp);
+		tmp = (*lst);
+	}
 }

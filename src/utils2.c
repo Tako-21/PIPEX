@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 13:38:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:37 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/11/17 18:27:29 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/11/17 18:41:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get.h"
-#include "tools.h"
 #include "utils.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-char	**get_path(char	*env[])
+char	*ft_strdup(const char *src)
 {
-	char	*path;
+	int		i;
+	char	*p;
 
-	path = ft_strnchr(*env, "PATH", ft_strlen("PATH="));
-	while (*env && !path)
+	i = 0;
+	p = malloc(sizeof(char) * ft_strlen((char *)src) + 1);
+	if (!p)
+		return (NULL);
+	while (src[i])
 	{
-		path = ft_strnchr(*env, "PATH=/", ft_strlen("PATH=/"));
-		env++;
+		p[i] = src[i];
+		i++;
 	}
-	return (ft_split(path, ':'));
+	p[i] = '\0';
+	return (p);
 }

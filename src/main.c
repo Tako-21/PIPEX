@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 20:09:28 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 16:42:08 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@
 #include <sys/types.h>
 #include <stdlib.h>
 
-// Gerer le chemin absolu
-// Gerer avec meme nom de fichier que nom de commande.
+static void	exe_allbin(t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (++i < data->args.argc -1)
+	{
+		printf("argv[%d] : %s\n", i, data->args.argv[i]);
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -33,24 +41,27 @@ int	main(int argc, char **argv, char **env)
 	data.args.argc = argc;
 	data.args.argv = argv;
 	data.args.env = env;
+	data.n_pipes = 2 * (argc - 4);
 
-	ft_lstpush(&data.collect, malloc(1));
-	ft_lstpush(&data.collect, malloc(1));
-	ft_lstpush(&data.collect, malloc(1));
-	printf("lst_size : %d\n", ft_lstsize(data.collect));
+	printf("n.pipes : %d\n", data.n_pipes);
+	data.pfd = malloc(sizeof(int) * data.n_pipes);
 
-	// check_requirement(&data);
-	// check_file_permission(&data);
-	// check_bin_permission(&data, 2);
-	// std_binout(data.bin_path, data.bin_args, env, &data);
-	// freemem(argc, &data);
-	// check_bin_permission(&data, 3);
-	// std_binin(data.bin_path, data.bin_args, env, &data);
+	check_requirement(&data);
+	check_file_permission(&data);
 
-	// printf("command	: %s \n", get_bin(argv[2]));
-	// printf("path 	: %s \n", get_path(argv[2]));
-	// perror("execve");
-	// printf("err : %s\n", strerror(errno));
-	// freemem(argc, &data);
+	check_bin_permission(&data, 2);
+	exe_binin(&data);
+	freemem(&data);
+
+	check_bin_permission(&data, 3);
+	exe_binout(&data);
+	freemem(&data);
+
+	check_bin_permission(&data, 4);
+	exe_bin(&data);
+	freemem(&data);
+	close_fd(&data);
+
+
 	return (21);
 }

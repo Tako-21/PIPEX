@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_bin.c                                          :+:      :+:    :+:   */
+/*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 15:45:11 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/18 12:15:39 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get.h"
+#include "tools.h"
+#include "utils.h"
 #include <stdlib.h>
 
-#include <stdio.h>
 char	*get_bin(char *sh_cmd)
 {
 	char	*cmd;
@@ -33,4 +34,17 @@ char	*get_bin(char *sh_cmd)
 	}
 	cmd[len] = '\0';
 	return (cmd);
+}
+
+char	**get_path(char	*env[])
+{
+	char	*path;
+
+	path = ft_strnchr(*env, "PATH", 5);
+	while (*env && !path)
+	{
+		path = ft_strnchr(*env, "PATH=/", 6);
+		env++;
+	}
+	return (ft_split(path, ':'));
 }
