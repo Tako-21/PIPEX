@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/18 19:04:02 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/19 10:29:04 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	freemem(t_data *data)
 	if (data->bin_args)
 		free(data->bin_args);
 }
+
+#include <stdio.h>
 
 void	close_fd(t_data *data)
 {
