@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/19 13:12:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:38:23 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 
 	init(argc, argv, env, &data);
 	// pipex(&data);
-	parse_args(&data, argv, 3);
+	parse_args(&data, 3);
 	// char *const	args[] = {
 	// 	"sed",
 	// 	" /World*$/ ! s/$/World/",

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:34:58 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/19 12:02:26 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/20 11:25:05 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 	data->pfd = malloc(sizeof(int) * (data->n_pipes * 2));
 	check_requirement(data);
 	check_file_permission(data);
+
 }
