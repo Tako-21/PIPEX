@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/19 13:25:04 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:50:27 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,18 @@ void	exe_firstbin(t_data *data)
 
 void	exe_lastbin(t_data *data)
 {
-	int	pid;
-	int	status;
-	int	i;
+	int				pid;
+	int				status;
+	uint32_t const	before_last_pfd = (data->n_pipes * 2) - 2;
 
-	i = -1;
+	printf("before_last_pfd : %d\n", before_last_pfd);
 	check_bin_permission(data, data->args.argc - 2);
-	while (data->bin_args[++i])
-		printf("data->bin_args[%d] : %s\n", i, data->bin_args[i]);
 	pid = fork();
 	if (pid < 0)
 		exit_error(ERR_FORK);
 	else if (pid == 0)
 	{
-		dup2(data->pfd[0], STDIN_FILENO);
+		dup2(data->pfd[before_last_pfd], STDIN_FILENO);
 		dup2(data->fd[1], STDOUT_FILENO);
 		close_fd(data);
 		if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
@@ -64,17 +62,15 @@ void	exe_lastbin(t_data *data)
 	freemem(data);
 }
 
-void	exe_bin(t_data *data)
+void	exe_bin(t_data *data, int read, int write)
 {
-	int	i;
-
-	i = -1;
-	printf("data->bin : %s\n", data->bin);
-	while (data->bin_args[++i])
-		printf("data->bin_args : %s\n", data->bin_args[i]);
-	dup2(data->pfd[0], STDIN_FILENO);
-	dup2(data->pfd[3], STDOUT_FILENO);
+	printf("read : %d\n", read);
+	printf("write : %d\n", write);
+	dup2(data->pfd[read], STDIN_FILENO);
+	dup2(data->pfd[write], STDOUT_FILENO);
 	close_fd(data);
+	read += 2;
+	write += 2;
 	if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
 		exit_error(ERR_EXE);
 }

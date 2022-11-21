@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:44:23 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/20 16:01:34 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:21:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include "get.h"
 
-void	check_requirement(t_data *data)
+void	check_path_env(t_data *data)
 {
 	int	i;
 
@@ -32,6 +32,8 @@ void	check_requirement(t_data *data)
 	if (data->args.env[i] == NULL)
 		exit_error(ERR_PATH);
 }
+
+#include <stdio.h>
 
 static void	fill_bin_args(t_data *data, int index)
 {
@@ -54,12 +56,15 @@ static void	fill_bin_args(t_data *data, int index)
 		data->bin_args = ft_split(data->args.argv[index], ' ');
 	else
 	{
+		printf("data->argv : %s\n", data->args.argv[3]);
+		printf("argv : %s\n", &data->args.argv[index][i]);
 		data->bin_args = malloc(sizeof(char *) * 3);
 		data->bin_args[0] = ft_strdup(data->bin);
 		data->bin_args[1] = ft_strdup(&data->args.argv[index][i]);
 		data->bin_args[2] = NULL;
 	}
 }
+
 
 void	parse_args(t_data *data, int index)
 {
@@ -69,4 +74,9 @@ void	parse_args(t_data *data, int index)
 	fill_bin_args(data, index);
 	if (!data->bin_args || !data->bin || !data->path)
 		return (freemem(data), exit_error(ERR_MEM));
+	int	i;
+
+	i = -1;
+	while (data->bin_args[++i])
+		printf("data->bin_args : %s\n", data->bin_args[i]);
 }

@@ -35,7 +35,7 @@ void	check_bin_permission(t_data *data, int index)
 	}
 	while (data->path[i])
 	{
-		data->bin_path = ft_strjoin(data->path[i], data->bin);
+		data->bin_path = ft_strjoin_path(data->path[i], data->bin);
 		if (!data->bin_path)
 			return (freemem(data), exit_error(ERR_MEM));
 		if (!access(data->bin_path, X_OK))
@@ -52,7 +52,7 @@ void	check_file_permission(t_data *data)
 {
 	data->fd[0] = open(data->args.argv[1], O_RDONLY);
 	data->fd[1] = open(data->args.argv[data->args.argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (data->fd[0] == -1)
+	if (data->fd[0] == -1 && !ft_strcmp(data->args.argv[1], "here_doc"))
 		exit_error(ERR_OPEN);
 	if (data->fd[1] == -1)
 	{

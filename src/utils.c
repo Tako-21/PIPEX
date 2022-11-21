@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:00 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/18 12:11:43 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:42:04 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_strnchr(char *s1, char *s2, size_t len)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *line, char *buffer)
+char	*ft_strjoin_path(char *line, char *buffer)
 {
 	char	*p;
 	int		i;

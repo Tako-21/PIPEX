@@ -14,7 +14,9 @@ SRCS = $(addprefix $(DSRC),\
 		check_permission.c	\
 		error.c				\
 		get.c				\
+		here_doc.c			\
 		main.c				\
+		get_next_line.c		\
 		init.c				\
 		lst.c				\
 		free.c				\

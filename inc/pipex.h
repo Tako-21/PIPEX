@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                      :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 15:47:36 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/14 13:22:15 by mmeguedm         ###   ########.fr       */
+/*   Created: 2022/11/21 16:51:43 by mmeguedm          #+#    #+#             */
+/*   Updated: 2022/11/21 17:58:38 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef PIPEX_H
+# define PIPEX_H
 
 #include "tools.h"
 
-void	check_file_permission(t_data *data);
-void	check_bin_permission(t_data *data, int index);
-void	check_path_env(t_data *data);
-void	exit_error(int sig_err);
-void	parse_args(t_data *data, int index);
-void	close_fd(t_data *data);
+void	init(int argc, char **argv, char **env, t_data *data);
+void	pipex(t_data *data);
+void	here_doc(t_data *data);
 
 #endif
