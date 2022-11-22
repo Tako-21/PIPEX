@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/20 17:50:27 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/22 13:34:38 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	exe_lastbin(t_data *data)
 	int				status;
 	uint32_t const	before_last_pfd = (data->n_pipes * 2) - 2;
 
-	printf("before_last_pfd : %d\n", before_last_pfd);
 	check_bin_permission(data, data->args.argc - 2);
 	pid = fork();
 	if (pid < 0)
@@ -73,4 +72,5 @@ void	exe_bin(t_data *data, int read, int write)
 	write += 2;
 	if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
 		exit_error(ERR_EXE);
+
 }

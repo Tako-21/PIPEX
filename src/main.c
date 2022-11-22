@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/21 20:14:12 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/22 13:36:17 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	pipex(t_data *data)
 			exe_bin(data, data->read, data->write);
 		data->read += 2;
 		data->write += 2;
+		freemem(data);
 	}
 	exe_lastbin(data);
 	wait(&status);
-	freemem(data);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	data;
 
 	init(argc, argv, env, &data);
-	// pipex(&data);
+	pipex(&data);
+	close_fd(&data);
 	return (21);
 }

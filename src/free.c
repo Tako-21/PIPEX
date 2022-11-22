@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:03:21 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/20 16:23:25 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/22 13:35:56 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void	close_fd(t_data *data)
 		close(data->pfd[i]);
 	close(data->fd[0]);
 	close(data->fd[1]);
+	free(data->pfd);
 }
