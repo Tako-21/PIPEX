@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/23 20:40:29 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:10:36 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	here_doc(t_data *data)
 	line = get_next_line(STDIN_FILENO);
 	while (!ft_strcmp(line, data->args.argv[2]))
 	{
-		if (*line == '\0')
-			return (free(data->pfd), free(line), exit_error(ERR_OPEN));
 		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
 		ft_putstr_fd(line ,data->fd[0]);
-		ft_putstr_fd("\n" ,data->fd[0]);
+		if (line[0] != '\n')
+			ft_putstr_fd("\n" ,data->fd[0]);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
-		printf("strlen_line : %d\n", ft_strlen(line));
 	}
 	free(line);
 	close(data->fd[0]);

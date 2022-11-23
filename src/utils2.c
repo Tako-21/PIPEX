@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 18:27:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/21 20:00:45 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:55:59 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_bool	ft_strcmp(char *s1, char *s2)
 	unsigned int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (FALSE);
 	while (s1[i] == s2[i] && (s1[i] || s2[i]))
 		i++;
 	if (s1[i] == s2[i])
