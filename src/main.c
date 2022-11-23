@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/22 13:36:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:01:54 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ static void	init_pfds(t_data *data)
 
 void	pipex(t_data *data)
 {
-	int	i;
 	int	pid;
 	int	status;
 
-	data->read = 0;
-	data->write = 3;
-	i = 2;
 	init_pfds(data);
 	exe_firstbin(data);
-	if (data->args.argc == 5)
-		return (exe_lastbin(data));
-	while (++i < data->args.argc - 2)
+	if (data->args.argc == 5
+		|| (data->index_firstbin == 3 && data->args.argc == 6))
+		{
+			// return ;
+			return (exe_lastbin(data));
+		}
+	while (data->index_firstbin < data->args.argc - 2)
 	{
-		check_bin_permission(data, i);
+		check_bin_permission(data, data->index_firstbin);
 		pid = fork();
 		if (pid < 0)
 			exit_error(ERR_FORK);
@@ -59,7 +59,9 @@ void	pipex(t_data *data)
 			exe_bin(data, data->read, data->write);
 		data->read += 2;
 		data->write += 2;
+		printf("index first bin : %d\n", data->index_firstbin);
 		freemem(data);
+		data->index_firstbin++;
 	}
 	exe_lastbin(data);
 	wait(&status);

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/21 19:04:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:29:28 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_data
 	int				read;
 	int				write;
 	int				n_pipes;
+	int				index_firstbin;
 	t_collector		*collect;
 	t_args			args;
 }			t_data;

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/22 13:34:38 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:12:10 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exe_firstbin(t_data *data)
 	int		pid;
 	int		status;
 
-	check_bin_permission(data, 2);
+	check_bin_permission(data, data->index_firstbin);
 	pid = fork();
 	if (pid < 0)
 		exit_error(ERR_FORK);
@@ -72,5 +72,4 @@ void	exe_bin(t_data *data, int read, int write)
 	write += 2;
 	if (execve(data->bin_path, data->bin_args, data->args.env) == -1)
 		exit_error(ERR_EXE);
-
 }
