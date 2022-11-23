@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/23 21:10:36 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:13:32 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 void	here_doc(t_data *data)
 {
 	char	*line;
-	int		line_size;
 
 	data->fd[0] = open("tmp", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (data->fd[0] == -1)

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/23 20:01:54 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:12:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ void	pipex(t_data *data)
 	exe_firstbin(data);
 	if (data->args.argc == 5
 		|| (data->index_firstbin == 3 && data->args.argc == 6))
-		{
-			// return ;
 			return (exe_lastbin(data));
-		}
 	while (data->index_firstbin < data->args.argc - 2)
 	{
 		check_bin_permission(data, data->index_firstbin);

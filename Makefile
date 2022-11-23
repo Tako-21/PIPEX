@@ -4,7 +4,7 @@ CC = cc
 
 # CFLAGS = -Wall -Werror -Wextra
 
-CFLAGS = -g3
+CFLAGS = -g3 -Wall
 SRC_PATH = src/
 INC_PATH = inc/
 OBJ_PATH = obj/

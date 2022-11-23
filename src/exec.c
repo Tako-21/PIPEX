@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:35:09 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/23 20:12:10 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:14:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 void	exe_firstbin(t_data *data)
 {
 	int		pid;
-	int		status;
 
 	check_bin_permission(data, data->index_firstbin);
 	pid = fork();
@@ -43,7 +42,6 @@ void	exe_firstbin(t_data *data)
 void	exe_lastbin(t_data *data)
 {
 	int				pid;
-	int				status;
 	uint32_t const	before_last_pfd = (data->n_pipes * 2) - 2;
 
 	check_bin_permission(data, data->args.argc - 2);
