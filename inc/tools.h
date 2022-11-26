@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/22 14:29:28 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:58:23 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ typedef struct s_error
 	char	*sig_msg;
 }			t_error;
 
+typedef struct s_storage_cmd
+{
+	char					**path;
+	char					**bin_args;
+	char					*bin_path;
+	char					*bin;
+	int						pos;
+	struct s_storage_cmd	*next;
+}					t_storage_cmd;
+
 typedef struct s_args
 {
 	int		argc;
@@ -54,26 +64,14 @@ typedef struct s_args
 	char	**env;
 }			t_args;
 
-typedef struct	s_collector
-{
-	void				*collect;
-	struct s_collector	*next;
-}				t_collector;
-
 typedef struct s_data
 {
-	int				*pfd;
+	int				pfd[2];
+	int				fd_in;
 	int				fd[2];
-	char			**path;
-	char			**bin_args;
-	char			*bin_path;
-	char			*bin;
-	int				read;
-	int				write;
-	int				n_pipes;
-	int				index_firstbin;
-	t_collector		*collect;
+	unsigned int	nb_cmd;
 	t_args			args;
+	t_storage_cmd	*storage;
 }			t_data;
 
 #endif

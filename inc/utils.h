@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:13 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/22 13:27:02 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:10:37 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ size_t		ft_strlen(const char *str);
 char		*ft_strjoin_path(char *line, char *buffer);
 char		**ft_split(char const *s, char c);
 void		freemem(t_data *data);
-void		mcollect(t_collector **lst, void	*addr_malloc);
-int			lstsize(t_collector *st);
-void		lstfree(t_collector **lst);
 char		*ft_strdup(const char *src);
 t_bool		ft_strcmp(char *s1, char *s2);
 char		*ft_strjoin(char *line, char *buffer);
 char		*get_next_line(int fd);
+void		add_node(t_storage_cmd **storage, char *cmd, char *env[]);
+
 #endif

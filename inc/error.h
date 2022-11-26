@@ -16,7 +16,6 @@
 #include "tools.h"
 
 void	check_file_permission(t_data *data);
-void	check_bin_permission(t_data *data, int index);
 void	check_path_env(t_data *data);
 void	exit_error(int sig_err);
 void	parse_args(t_data *data, int index);
