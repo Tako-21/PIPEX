@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/26 17:58:23 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:58:35 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct s_error
 	char	*sig_msg;
 }			t_error;
 
+typedef struct s_args
+{
+	int		argc;
+	char	**argv;
+	char	**env;
+}			t_args;
+
 typedef struct s_storage_cmd
 {
 	char					**path;
@@ -55,14 +62,14 @@ typedef struct s_storage_cmd
 	char					*bin;
 	int						pos;
 	struct s_storage_cmd	*next;
+	struct s_storage_cmd	*prev;
 }					t_storage_cmd;
 
-typedef struct s_args
+typedef struct s_dblist
 {
-	int		argc;
-	char	**argv;
-	char	**env;
-}			t_args;
+	t_storage_cmd	*first;
+	t_storage_cmd	*last;
+}					t_dblist;
 
 typedef struct s_data
 {
@@ -71,7 +78,8 @@ typedef struct s_data
 	int				fd[2];
 	unsigned int	nb_cmd;
 	t_args			args;
-	t_storage_cmd	*storage;
+	t_dblist		dblist;
+	// t_storage_cmd	*storage;
 }			t_data;
 
 #endif

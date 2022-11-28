@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/28 14:41:18 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:03:29 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	here_doc(t_data *data)
 	char	*line;
 
 	line = NULL;
-	data->fd[0] = open(".tmp", O_RDWR | O_CREAT | O_TRUNC, 0000);
+	data->fd[0] = open(".tmp", O_RDWR | O_CREAT | O_TRUNC, 0600);
 	if (data->fd[0] == -1)
 		return (exit_error(ERR_OPEN));
 	while (!ft_strcmp(line, data->args.argv[2]))
@@ -42,7 +42,7 @@ void	here_doc(t_data *data)
 	}
 	free(line);
 	close(data->fd[0]);
-	data->fd[0] = open(".tmp", O_RDWR | O_CREAT, 0000);
+	data->fd[0] = open(".tmp", O_RDONLY);
 	if (data->fd[0] == -1)
 		return (exit_error(ERR_OPEN));
 }

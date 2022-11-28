@@ -5,3 +5,5 @@ outfile
 test.c
 pipex
 .vscode
+.tmp
+tmp
