@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/26 20:01:49 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/28 13:20:03 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 	data->fd_in = 0;
 	data->fd[0] = open(data->args.argv[1], O_RDONLY);
 	data->fd[1] = open(data->args.argv[data->args.argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (data->fd[1] == -1)
-		exit_error(ERR_OPEN);
 	if (ft_strcmp(argv[1], "here_doc"))
 	{
 		if (argc < 6)
@@ -107,12 +105,8 @@ void	launcher(t_data *data)
 		data->storage = data->storage->next;
 		i++;
 	}
-	i = 0;
-	while (i < data->nb_cmd)
-	{
+	while (--i > 0)
 		waitpid(pid[i], NULL, 0);
-		i++;
-	}
 }
 
 void	fill_bin(int argc, char **argv, char **env, t_data *data)
@@ -136,8 +130,8 @@ int	main(int argc, char **argv, char **env)
 
 	data.storage = NULL;
 	init(argc, argv, env, &data);
-	fill_bin(argc, argv, env, &data);
-	launcher(&data);
+	// fill_bin(argc, argv, env, &data);
+	// launcher(&data);
 	return (21);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/26 12:45:11 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:41:18 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,26 @@ void	here_doc(t_data *data)
 {
 	char	*line;
 
-	data->fd[0] = open("tmp", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	line = NULL;
+	data->fd[0] = open(".tmp", O_RDWR | O_CREAT | O_TRUNC, 0000);
 	if (data->fd[0] == -1)
-		return (free(data->pfd), exit_error(ERR_OPEN));
-	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-	line = get_next_line(STDIN_FILENO);
+		return (exit_error(ERR_OPEN));
 	while (!ft_strcmp(line, data->args.argv[2]))
 	{
 		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-		ft_putstr_fd(line ,data->fd[0]);
-		if (line[0] != '\n')
-			ft_putstr_fd("\n" ,data->fd[0]);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			exit_error(ERR_MEM);
+		if (ft_strcmp(line, data->args.argv[2]))
+			break ;
+		ft_putstr_fd(line ,data->fd[0]);
+		if (!ft_strcmp(line, "\n"))
+			ft_putstr_fd("\n" , data->fd[0]);
 	}
 	free(line);
 	close(data->fd[0]);
-	data->fd[0] = open("tmp", O_RDWR | O_CREAT, 0644);
+	data->fd[0] = open(".tmp", O_RDWR | O_CREAT, 0000);
 	if (data->fd[0] == -1)
-		return (free(data->pfd), exit_error(ERR_OPEN));
+		return (exit_error(ERR_OPEN));
 }
