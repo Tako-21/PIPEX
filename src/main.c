@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/29 12:50:21 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:14:58 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,38 +97,53 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 	}
 }
 
-void	do_job(t_data *data)
+void	do_job(t_data *data, t_storage_cmd *node)
 {
-	if (data->dblist.first->pos == 1)
-		dup2(data->fd[0], STDIN_FILENO);
+	if (node->pos == 1)
+	{
+		if (data->fd[0] == -1)
+		{
+			dup2(data->pfd[1], STDOUT_FILENO);
+			lstfree(data);
+			exit(21);
+		}
+		else
+			dup2(data->fd[0], STDIN_FILENO);
+	}
 	else
 		dup2(data->fd_in, STDIN_FILENO);
-	if (data->dblist.first->pos != data->nb_cmd)
+	if (node->pos != data->nb_cmd)
 		dup2(data->pfd[1], STDOUT_FILENO);
 	else
 		dup2(data->fd[1], STDOUT_FILENO);
 	close(data->pfd[0]);
 	close(data->pfd[1]);
-	if (execve(data->dblist.first->bin_path, data->dblist.first->bin_args,
-		data->args.env) == -1)
-		exit_error(ERR_EXE);
+	execve(node->bin_path, node->bin_args,
+		data->args.env);
+	perror(node->bin);
+	lstfree(data);
+	exit(21);
 }
+
 
 void	launcher(t_data *data)
 {
+	t_storage_cmd	*tmp;
 	pid_t	pid[data->nb_cmd];
 	int		i;
 
 	i = 0;
-	while (data->dblist.first)
+	tmp = data->dblist.first;
+	while (tmp)
 	{
+		printf("tmp->bin : %s\n", tmp->bin);
 		if (pipe(data->pfd) == -1)
 			exit_error(ERR_PIPE);
 		pid[i] = fork();
 		if (pid[i] == -1)
 			exit_error(ERR_FORK);
 		else if (pid[i] > 0)
-			do_job(data);
+			do_job(data, tmp);
 		else
 		{
 			close(data->pfd[1]);
@@ -137,13 +152,12 @@ void	launcher(t_data *data)
 			if (i != data->nb_cmd)
 				data->fd_in = data->pfd[0];
 		}
-		data->dblist.first = data->dblist.first->next;
+		tmp = tmp->next;
 		i++;
 	}
 	while (--i >= 0)
 		waitpid(pid[i], NULL, 0);
 }
-
 
 void	fill_bin(int argc, char **argv, char **env, t_data *data)
 {
@@ -163,56 +177,11 @@ void	fill_bin(int argc, char **argv, char **env, t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data		data;
-	t_dblist	dblist;
 
-
-	init_list(&dblist);
-	// data.storage = NULL;
-
-	// add_node(&data.storage, argv[1], env);
-	// add_node(&data.storage, argv[1], env);
-	// add_node(&data.storage, argv[1], env);
-	// ft_lstaddback(&data.storage);
-	// ft_lstaddback(&data.storage);
-	// ft_lstaddback(&data.storage);
-
+	init_list(&data);
 	init(argc, argv, env, &data);
 	fill_bin(argc, argv, env, &data);
 	launcher(&data);
+	lstfree(&data);
 	return (21);
 }
-
-// void	freemem(t_data *data)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	if (data->bin)
-// 		free(data->bin);
-// 	if (data->bin_path)
-// 		free(data->bin_path);
-// 	while (data->path && data->path[++i])
-// 		free(data->path[i]);
-// 	if (data->path)
-// 		free(data->path);
-// 	i = -1;
-// 	while (data->bin_args && data->bin_args[++i] != NULL)
-// 		free(data->bin_args[i]);
-// 	if (data->bin_args)
-// 		free(data->bin_args);
-// }
-
-// #include <stdio.h>
-
-// void	close_fd(t_data *data)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	// while (++i < data->n_pipes * 2)
-// 		// close(data->pfd[i]);
-// 	close(data->fd[0]);
-// 	close(data->fd[1]);
-// 	free(data->pfd);
-// 	unlink("tmp");
-// }

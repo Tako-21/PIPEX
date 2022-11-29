@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:53:16 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/28 17:12:18 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:23:28 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "error.h"
 #include <stdlib.h>
 
-void	init_list(t_dblist *lst)
+void	init_list(t_data *data)
 {
-	lst->first = NULL;
-	lst->last = NULL;
+	data->dblist.first = NULL;
+	data->dblist.last = NULL;
 }
 
 
@@ -39,13 +39,15 @@ void add_node_front(t_dblist *l, int val)
 	l->first = new;
 }
 
-void	add_node_back(t_dblist *l, char *cmd, char *env[])
+void	add_node_back(t_dblist *l, char *cmd, char *env[], t_data *data)
 {
 	t_storage_cmd	*new;
 	static int		pos = 1;
 
 	new = malloc(sizeof(*new));
-	if (!new)
+	if (!new && pos > 1)
+		return (lstfree(data), exit_error(ERR_MEM));
+	else
 		exit_error(ERR_MEM);
 	new->pos = pos;
 	new->prev = l->last;
@@ -59,30 +61,6 @@ void	add_node_back(t_dblist *l, char *cmd, char *env[])
 	else
 		l->first = new;
 	l->last = new;
-	pos++;
-}
-
-void	ft_lstaddback(t_storage_cmd **lst)
-{
-	t_storage_cmd	*new;
-	t_storage_cmd	*tmp;
-	static int		pos = 1;
-
-
-	tmp = (*lst);
-	new = malloc(sizeof(*new));
-	if (!new)
-		exit_error(ERR_MEM);
-	new->next = NULL;
-	new->pos = pos;
-	if (*lst == NULL)
-		(*lst) = new;
-	else
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
 	pos++;
 }
 
@@ -102,4 +80,33 @@ void	add_node(t_storage_cmd **storage, char *cmd, char *env[])
 	new->pos = pos;
 	*(storage) = new;
 	pos++;
+}
+
+#include <stdio.h>
+
+void	lstfree(t_data *l)
+{
+	t_storage_cmd	*node;
+	t_storage_cmd	*tmp;
+	int				i;
+
+	tmp = l->dblist.first;
+	while (tmp)
+	{
+		i = -1;
+		node = tmp;
+		tmp = tmp->next;
+		free(node->bin);
+		free(node->bin_path);
+		while (node->bin_args[++i])
+			free(node->bin_args[i]);
+		free(node->bin_args);
+		i = -1;
+		while (node->path[++i])
+			free(node->path[i]);
+		free(node->path);
+		free(node);
+	}
+	l->dblist.first = NULL;
+	l->dblist.last = NULL;
 }
