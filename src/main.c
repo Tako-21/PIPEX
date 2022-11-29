@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/29 12:03:13 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:50:21 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 	data->args.argv = argv;
 	data->args.env = env;
 	data->fd_in = 0;
-	data->fd[1] = open(argv[argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (ft_strcmp(argv[1], "here_doc"))
 	{
 		if (argc < 6)
 			exit_error(ERR_ARG);
+		data->fd[1] = open(argv[argc -1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		data->nb_cmd = argc - 4;
 		here_doc(data);
 	}
@@ -86,6 +86,7 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 	{
 		data->nb_cmd = argc - 3;
 		data->fd[0] = open(argv[1], O_RDONLY);
+		data->fd[1] = open(argv[argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (data->fd[0] == -1)
 			perror(argv[1]);
 	}
@@ -98,20 +99,19 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 
 void	do_job(t_data *data)
 {
-	printf("bin : |%s|\n", data->dblist.first->bin);
-	// if (data->storage->pos != data->nb_cmd)
-	// 	dup2(data->fd_in, STDIN_FILENO);
-	// else
-	// 	dup2(data->fd[0], STDIN_FILENO);
-	// if (data->storage->pos != 1)
-	// 	dup2(data->pfd[1], STDOUT_FILENO);
-	// else
-	// 	dup2(data->fd[1], STDOUT_FILENO);
-	// close(data->pfd[0]);
-	// close(data->pfd[1]);
-	// if (execve(data->storage->bin_path, data->storage->bin_args,
-	// 	data->args.env) == -1)
-	// 	exit_error(ERR_EXE);
+	if (data->dblist.first->pos == 1)
+		dup2(data->fd[0], STDIN_FILENO);
+	else
+		dup2(data->fd_in, STDIN_FILENO);
+	if (data->dblist.first->pos != data->nb_cmd)
+		dup2(data->pfd[1], STDOUT_FILENO);
+	else
+		dup2(data->fd[1], STDOUT_FILENO);
+	close(data->pfd[0]);
+	close(data->pfd[1]);
+	if (execve(data->dblist.first->bin_path, data->dblist.first->bin_args,
+		data->args.env) == -1)
+		exit_error(ERR_EXE);
 }
 
 void	launcher(t_data *data)
@@ -122,7 +122,6 @@ void	launcher(t_data *data)
 	i = 0;
 	while (data->dblist.first)
 	{
-		// printf("i : %d\n", i);
 		if (pipe(data->pfd) == -1)
 			exit_error(ERR_PIPE);
 		pid[i] = fork();
@@ -142,10 +141,7 @@ void	launcher(t_data *data)
 		i++;
 	}
 	while (--i >= 0)
-	{
-		printf("i : |%d|\n", i);
 		waitpid(pid[i], NULL, 0);
-	}
 }
 
 
@@ -158,7 +154,6 @@ void	fill_bin(int argc, char **argv, char **env, t_data *data)
 		actual_bin = 3;
 	while (actual_bin < argc - 1)
 	{
-		printf("acutal_bin : %d\n", actual_bin);
 		add_node_back(&data->dblist, argv[actual_bin], env);
 		actual_bin++;
 	}
@@ -181,7 +176,7 @@ int	main(int argc, char **argv, char **env)
 	// ft_lstaddback(&data.storage);
 	// ft_lstaddback(&data.storage);
 
-	// init(argc, argv, env, &data);
+	init(argc, argv, env, &data);
 	fill_bin(argc, argv, env, &data);
 	launcher(&data);
 	return (21);
