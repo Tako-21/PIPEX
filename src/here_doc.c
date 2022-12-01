@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/29 18:22:00 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:43:56 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void	nul_character(t_data *data)
+{
+	ft_putstr_fd("\nwarning: here-document ", STDOUT_FILENO);
+	ft_putstr_fd("delimited by end-of-file (wanted ", STDOUT_FILENO);
+	ft_putstr_fd(data->args.argv[2], STDOUT_FILENO);
+	ft_putstr_fd(")\n", STDOUT_FILENO);
+}
+
+static void	extra(char *line, t_data *data)
+{
+	free(line);
+	close(data->fd[0]);
+	data->fd[0] = open(".tmp", O_RDONLY);
+	if (data->fd[0] == -1)
+		return (exit_error(ERR_OPEN));
+}
 
 void	here_doc(t_data *data)
 {
@@ -34,15 +50,16 @@ void	here_doc(t_data *data)
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			exit_error(ERR_MEM);
+		if (!*line)
+		{
+			nul_character(data);
+			break ;
+		}
 		if (ft_strcmp(line, data->args.argv[2]))
 			break ;
-		ft_putstr_fd(line ,data->fd[0]);
+		ft_putstr_fd(line, data->fd[0]);
 		if (!ft_strcmp(line, "\n"))
-			ft_putstr_fd("\n" , data->fd[0]);
+			ft_putstr_fd("\n", data->fd[0]);
 	}
-	free(line);
-	close(data->fd[0]);
-	data->fd[0] = open(".tmp", O_RDONLY);
-	if (data->fd[0] == -1)
-		return (exit_error(ERR_OPEN));
+	extra(line, data);
 }

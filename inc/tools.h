@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/28 16:58:35 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:50:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 /* Definition of boolean type  */
 typedef enum e_bool
 {
-			FALSE,
-			TRUE
-}			t_bool;
+	FALSE,
+	TRUE
+}	t_bool;
 
 /* Definition of ERROR_SIGNAL  */
 typedef enum e_sig_err {
@@ -79,7 +79,6 @@ typedef struct s_data
 	unsigned int	nb_cmd;
 	t_args			args;
 	t_dblist		dblist;
-	// t_storage_cmd	*storage;
 }			t_data;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 13:53:15 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/23 21:08:09 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:42:08 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	ft_newline(char *s)
 	return (0);
 }
 
+static char	*extra(char *line, char *buffer)
+{
+	if (!line)
+		line = ft_strdup("\n");
+	return (free(buffer), line);
+}
+
 char	*get_next_line(int fd)
 {
 	char	*buffer;
@@ -42,12 +49,13 @@ char	*get_next_line(int fd)
 		readed = read(fd, buffer, BUFFER_SIZE);
 		if (readed == -1)
 			return (free(buffer), NULL);
-		if (buffer[0] == '\n')
+		if (!readed)
 		{
-			if (!line)
-				line = ft_strdup("\n");
+			line = ft_strdup("\0");
 			return (free(buffer), line);
 		}
+		if (buffer[0] == '\n')
+			return (extra(line, buffer));
 		buffer[readed] = 0;
 		line = ft_strjoin(line, buffer);
 	}

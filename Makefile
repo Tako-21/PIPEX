@@ -17,6 +17,7 @@ SRCS = $(addprefix $(DSRC),\
 		main.c				\
 		get_next_line.c		\
 		list.c				\
+		extra.c				\
 		split.c				\
 		utils.c				\
 		utils2.c)

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:53:16 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/29 20:23:28 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:49:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 #include "get.h"
+#include "utils.h"
 #include "error.h"
 #include <stdlib.h>
 
@@ -21,18 +22,17 @@ void	init_list(t_data *data)
 	data->dblist.last = NULL;
 }
 
-
-void add_node_front(t_dblist *l, int val)
+void	add_node_front(t_dblist *l, int val)
 {
-	t_storage_cmd *new;
+	t_storage_cmd	*new;
 
 	new = malloc(sizeof(*new));
-	if(!new)
+	if (!new)
 		exit(EXIT_FAILURE);
 	new->pos = val;
 	new->next = l->first;
 	new->prev = NULL;
-	if(l->first)
+	if (l->first)
 		l->first->prev = new;
 	else
 		l->last = new;
@@ -47,7 +47,7 @@ void	add_node_back(t_dblist *l, char *cmd, char *env[], t_data *data)
 	new = malloc(sizeof(*new));
 	if (!new && pos > 1)
 		return (lstfree(data), exit_error(ERR_MEM));
-	else
+	else if (!new && pos == 1)
 		exit_error(ERR_MEM);
 	new->pos = pos;
 	new->prev = l->last;
@@ -82,8 +82,6 @@ void	add_node(t_storage_cmd **storage, char *cmd, char *env[])
 	pos++;
 }
 
-#include <stdio.h>
-
 void	lstfree(t_data *l)
 {
 	t_storage_cmd	*node;
@@ -102,11 +100,13 @@ void	lstfree(t_data *l)
 			free(node->bin_args[i]);
 		free(node->bin_args);
 		i = -1;
-		while (node->path[++i])
-			free(node->path[i]);
-		free(node->path);
+		if (node->path != NULL)
+		{
+			while (node->path[++i])
+				free(node->path[i]);
+			free(node->path);
+		}
 		free(node);
 	}
-	l->dblist.first = NULL;
-	l->dblist.last = NULL;
+	extra_list(l);
 }

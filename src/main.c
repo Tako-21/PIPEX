@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/11/29 20:14:58 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:31:13 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,10 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <stdint.h>
-
-
 #include <stdio.h>
-// TO REMOVE ////////////////////////////
-void	lstprint(t_storage_cmd *lst)
+
+void	init(int argc, char **argv, char **env, t_data *data)
 {
-	while (lst)
-	{
-		printf("lst->bin : %s\n", lst->bin);
-		printf("lst->bin_path : %s\n", lst->bin_path);
-		printf("pos : %d\n", lst->pos);
-		lst = lst->next;
-	}
-}
-
-// void	lstprint_db(t_data data)
-// {
-// 	t_storage_cmd	*tmp;
-
-// 	tmp = data.dblist.first;
-// 	while (tmp)
-// 	{
-// 		printf("pos : %s\n", tmp->bin);
-// 		// printf("lst->bin : %s\n", lst->bin);
-// 		// printf("lst->bin_path : %s\n", lst->bin_path);
-// 		// printf("pos : %d\n", lst->pos);
-// 		tmp = tmp->next;
-// 	}
-// }
-
-void	lstprint_db(t_data data)
-{
-	while (data.dblist.first)
-	{
-		printf("pos : %d\n", data.dblist.first->pos);
-		// printf("lst->bin : %s\n", lst->bin);
-		// printf("lst->bin_path : %s\n", lst->bin_path);
-		// printf("pos : %d\n", lst->pos);
-		data.dblist.first = data.dblist.first->next;
-	}
-}
-
-/////////////////////////////////////////
-
-void	init(int argc, char **argv, char **env,  t_data *data)
-{
-	if (argc < 5)
-		exit_error(ERR_ARG);
 	data->args.argc = argc;
 	data->args.argv = argv;
 	data->args.env = env;
@@ -99,64 +55,55 @@ void	init(int argc, char **argv, char **env,  t_data *data)
 
 void	do_job(t_data *data, t_storage_cmd *node)
 {
+	if (!node->bin_path || !node->bin_args)
+		cmd_not_found(data, node);
 	if (node->pos == 1)
 	{
 		if (data->fd[0] == -1)
 		{
 			dup2(data->pfd[1], STDOUT_FILENO);
-			lstfree(data);
-			exit(21);
+			return (lstfree(data), close_fds(data), exit(21));
 		}
 		else
 			dup2(data->fd[0], STDIN_FILENO);
 	}
 	else
 		dup2(data->fd_in, STDIN_FILENO);
-	if (node->pos != data->nb_cmd)
+	if (node ->pos != data->nb_cmd)
 		dup2(data->pfd[1], STDOUT_FILENO);
 	else
 		dup2(data->fd[1], STDOUT_FILENO);
-	close(data->pfd[0]);
-	close(data->pfd[1]);
-	execve(node->bin_path, node->bin_args,
-		data->args.env);
-	perror(node->bin);
-	lstfree(data);
-	exit(21);
+	close_fds(data);
+	execve(node->bin_path, node->bin_args, data->args.env);
+	return (perror(node->bin), lstfree(data), exit(21));
 }
-
 
 void	launcher(t_data *data)
 {
 	t_storage_cmd	*tmp;
-	pid_t	pid[data->nb_cmd];
-	int		i;
+	pid_t			*pid;
+	int				i;
 
+	pid = malloc(sizeof(pid_t) * data->nb_cmd);
 	i = 0;
 	tmp = data->dblist.first;
 	while (tmp)
 	{
-		printf("tmp->bin : %s\n", tmp->bin);
 		if (pipe(data->pfd) == -1)
 			exit_error(ERR_PIPE);
 		pid[i] = fork();
 		if (pid[i] == -1)
 			exit_error(ERR_FORK);
-		else if (pid[i] > 0)
+		else if (pid[i] == 0)
 			do_job(data, tmp);
 		else
-		{
-			close(data->pfd[1]);
-			if (i != 0)
-				close(data->fd_in);
-			if (i != data->nb_cmd)
-				data->fd_in = data->pfd[0];
-		}
+			extra_launcher(data, i);
 		tmp = tmp->next;
 		i++;
 	}
 	while (--i >= 0)
 		waitpid(pid[i], NULL, 0);
+	free(pid);
 }
 
 void	fill_bin(int argc, char **argv, char **env, t_data *data)
@@ -168,20 +115,22 @@ void	fill_bin(int argc, char **argv, char **env, t_data *data)
 		actual_bin = 3;
 	while (actual_bin < argc - 1)
 	{
-		add_node_back(&data->dblist, argv[actual_bin], env);
+		add_node_back(&data->dblist, argv[actual_bin], env, data);
 		actual_bin++;
 	}
-
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data		data;
 
+	if (argc < 5)
+		exit_error(ERR_ARG);
 	init_list(&data);
 	init(argc, argv, env, &data);
 	fill_bin(argc, argv, env, &data);
 	launcher(&data);
+	close_fds(&data);
 	lstfree(&data);
 	return (21);
 }

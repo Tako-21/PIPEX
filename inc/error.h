@@ -13,7 +13,7 @@
 #ifndef ERROR_H
 # define ERROR_H
 
-#include "tools.h"
+# include "tools.h"
 
 void	check_file_permission(t_data *data);
 void	check_path_env(t_data *data);
