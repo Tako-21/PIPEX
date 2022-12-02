@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:24:33 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/12/01 19:50:09 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:53:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_data
 	int				fd_in;
 	int				fd[2];
 	unsigned int	nb_cmd;
+	pid_t			*pid;
 	t_args			args;
 	t_dblist		dblist;
 }			t_data;

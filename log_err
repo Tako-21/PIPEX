@@ -1,0 +1,9 @@
+./pipex zizi cat rev test
+
+
+➜  PIPEX git:(main) ✗ ./pipex obj cat rev obj
+obj: Is a directory
+➜  PIPEX git:(main) ✗ cat <obj | rev >obj
+zsh: is a directory: obj
+cat: -: Is a directory
+

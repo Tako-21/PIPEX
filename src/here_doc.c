@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:41:49 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/12/01 19:43:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:21:41 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,18 @@ void	nul_character(t_data *data)
 	ft_putstr_fd(")\n", STDOUT_FILENO);
 }
 
-static void	extra(char *line, t_data *data)
-{
-	free(line);
-	close(data->fd[0]);
-	data->fd[0] = open(".tmp", O_RDONLY);
-	if (data->fd[0] == -1)
-		return (exit_error(ERR_OPEN));
-}
-
 void	here_doc(t_data *data)
 {
 	char	*line;
 
 	line = NULL;
-	data->fd[0] = open(".tmp", O_RDWR | O_CREAT | O_TRUNC, 0600);
-	if (data->fd[0] == -1)
-		return (exit_error(ERR_OPEN));
 	while (!ft_strcmp(line, data->args.argv[2]))
 	{
 		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
-			exit_error(ERR_MEM);
+			return (exit_error(ERR_MEM));
 		if (!*line)
 		{
 			nul_character(data);
@@ -57,9 +45,9 @@ void	here_doc(t_data *data)
 		}
 		if (ft_strcmp(line, data->args.argv[2]))
 			break ;
-		ft_putstr_fd(line, data->fd[0]);
+		ft_putstr_fd(line, data->pfd[1]);
 		if (!ft_strcmp(line, "\n"))
-			ft_putstr_fd("\n", data->fd[0]);
+			ft_putstr_fd("\n", data->pfd[1]);
 	}
-	extra(line, data);
+	free(line);
 }

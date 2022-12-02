@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:53:16 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/12/01 19:49:06 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:21:25 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	add_node_back(t_dblist *l, char *cmd, char *env[], t_data *data)
 	if (!new && pos > 1)
 		return (lstfree(data), exit_error(ERR_MEM));
 	else if (!new && pos == 1)
-		exit_error(ERR_MEM);
+		return (exit_error(ERR_MEM));
 	new->pos = pos;
 	new->prev = l->last;
 	new->next = NULL;
@@ -71,7 +71,7 @@ void	add_node(t_storage_cmd **storage, char *cmd, char *env[])
 
 	new = malloc(sizeof(*new));
 	if (!new)
-		exit_error(ERR_MEM);
+		return (exit_error(ERR_MEM));
 	new->next = (*storage);
 	new->bin = get_bin(cmd);
 	new->path = get_path(env);
@@ -89,6 +89,7 @@ void	lstfree(t_data *l)
 	int				i;
 
 	tmp = l->dblist.first;
+	free(l->pid);
 	while (tmp)
 	{
 		i = -1;
@@ -96,17 +97,9 @@ void	lstfree(t_data *l)
 		tmp = tmp->next;
 		free(node->bin);
 		free(node->bin_path);
-		while (node->bin_args[++i])
-			free(node->bin_args[i]);
-		free(node->bin_args);
-		i = -1;
-		if (node->path != NULL)
-		{
-			while (node->path[++i])
-				free(node->path[i]);
-			free(node->path);
-		}
+		extra_loop_free(node);
 		free(node);
 	}
-	extra_list(l);
+	l->dblist.first = NULL;
+	l->dblist.last = NULL;
 }

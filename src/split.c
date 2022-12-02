@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:30:00 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/12/01 19:14:29 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:42:38 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ static char	*ft_initword(char *src, size_t endWord, size_t nbchar, char c)
 	return (word);
 }
 
+static void	extra_init(int *index, int *nbchar, int *i)
+{
+	*i = 0;
+	*index = 0;
+	*nbchar = 0;
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
@@ -75,11 +82,11 @@ char	**ft_split(char const *s, char c)
 	int		nbchar;
 	int		index;
 
-	index = 0;
-	nbchar = 0;
-	i = 0;
+	if (!s)
+		return (NULL);
+	extra_init(&index, &nbchar, &i);
 	split = (char **)malloc(sizeof(char *) * (nb_words(s, c) + 1));
-	if (!s || !split)
+	if (!split)
 		return (NULL);
 	while (i < ft_strrlen((char *)s))
 	{

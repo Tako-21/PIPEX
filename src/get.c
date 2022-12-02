@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2022/12/01 19:38:06 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:20:27 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*get_bin_path(char *cmd, char *bin, char **path)
 	int		i;
 
 	i = 0;
+	bin_path = NULL;
 	if (!access(cmd, X_OK))
 		return (ft_strdup(bin));
 	else if (access(cmd, X_OK) == -1 && (!path || !*path))
